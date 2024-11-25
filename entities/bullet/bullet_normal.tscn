@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://rxxgn5tswtyo"]
+
+[ext_resource type="PackedScene" uid="uid://ijlq3nnvkmma" path="res://entities/bullet/bullet.tscn" id="1_bq82r"]
+[ext_resource type="Script" path="res://entities/bullet/States/shoot.gd" id="2_4qxw0"]
+[ext_resource type="Script" path="res://entities/bullet/States/reloaded.gd" id="3_7d108"]
+[ext_resource type="Script" path="res://entities/bullet/States/disperse.gd" id="4_26s7w"]
+[ext_resource type="Script" path="res://entities/bullet/States/pickable.gd" id="5_c5rbs"]
+[ext_resource type="Texture2D" uid="uid://b35gvcen45mlc" path="res://assets/bullets/bullet_normal.png" id="7_xo2bm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5fox"]
+atlas = ExtResource("7_xo2bm")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1g6k"]
+atlas = ExtResource("7_xo2bm")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w76u7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5fox")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1g6k")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[node name="Bullet" instance=ExtResource("1_bq82r")]
+
+[node name="StateMachine" parent="." index="0" node_paths=PackedStringArray("initial_state", "entity")]
+initial_state = NodePath("Reloaded")
+entity = NodePath("..")
+
+[node name="Shoot" type="Node" parent="StateMachine" index="0"]
+script = ExtResource("2_4qxw0")
+
+[node name="Reloaded" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("3_7d108")
+
+[node name="Disperse" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("4_26s7w")
+
+[node name="Pickable" type="Node" parent="StateMachine" index="3"]
+script = ExtResource("5_c5rbs")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+z_index = 1
+rotation = 1.57113
+sprite_frames = SubResource("SpriteFrames_w76u7")
+animation = &"idle"
+
+[node name="ColliderComponent" parent="." index="2"]
+scale = Vector2(1, 0.994416)
+
+[connection signal="on_enemy_touched" from="ColliderComponent" to="StateMachine/Shoot" method="_on_enemy_touched"]
+[connection signal="on_player_exited" from="ColliderComponent" to="StateMachine/Pickable" method="_on_collider_component_on_player_exited"]
+[connection signal="on_player_touched" from="ColliderComponent" to="StateMachine/Pickable" method="_on_player_touched"]
+[connection signal="on_wall_touched" from="ColliderComponent" to="." method="_on_wall_touched"]
+[connection signal="on_wall_touched" from="ColliderComponent" to="StateMachine/Shoot" method="_on_wall_touched"]
+[connection signal="on_wall_touched" from="ColliderComponent" to="StateMachine/Disperse" method="_on_wall_touched"]
+
+[editable path="ColliderComponent"]

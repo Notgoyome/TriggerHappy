@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://ijlq3nnvkmma"]
+
+[ext_resource type="Script" path="res://entities/bullet/bullet.gd" id="1_0qhm3"]
+[ext_resource type="Texture2D" uid="uid://dqvyu3la8w31w" path="res://assets/Coin Sheet.png" id="1_w3pe8"]
+[ext_resource type="PackedScene" uid="uid://d2a2y6khpslnm" path="res://addons/state_machine/state_machine.tscn" id="2_3hifv"]
+[ext_resource type="PackedScene" uid="uid://bi1ci5plc0mmh" path="res://entities/components/collider_component.tscn" id="3_exe5g"]
+[ext_resource type="Texture2D" uid="uid://bdq2ewjrp5pqk" path="res://assets/Set 1.3.png" id="5_nxeen"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjgp6"]
+atlas = ExtResource("1_w3pe8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mr2fo"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjgp6")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcmb3"]
+atlas = ExtResource("5_nxeen")
+region = Rect2(136, 0, 8, 5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cadsx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcmb3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_0qhm3")
+speed = null
+damage = null
+dispersion_speed = null
+
+[node name="StateMachine" parent="." instance=ExtResource("2_3hifv")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mr2fo")
+animation = &"shoot"
+
+[node name="ColliderComponent" parent="." instance=ExtResource("3_exe5g")]
+collision_mask = 3
+
+[node name="Shadow" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.560784)
+position = Vector2(0, 6)
+sprite_frames = SubResource("SpriteFrames_cadsx")

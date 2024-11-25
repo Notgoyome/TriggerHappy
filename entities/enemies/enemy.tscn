@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://bl8g46gak2s64"]
+
+[ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_muj5w"]
+[ext_resource type="Texture2D" uid="uid://dxfwhckhbsei5" path="res://assets/Button.png" id="2_ipkvv"]
+[ext_resource type="PackedScene" uid="uid://bi1ci5plc0mmh" path="res://entities/components/collider_component.tscn" id="3_e7qp2"]
+[ext_resource type="Script" path="res://entities/enemies/enemyComponents/basic_movement_component.gd" id="4_oumxs"]
+[ext_resource type="PackedScene" uid="uid://bak4enlcl0ix7" path="res://entities/components/health_component.tscn" id="5_3757q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gc0v"]
+atlas = ExtResource("2_ipkvv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oqii7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gc0v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bcgi0"]
+size = Vector2(16, 6)
+
+[node name="Enemy" type="StaticBody2D"]
+script = ExtResource("1_muj5w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oqii7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_bcgi0")
+
+[node name="ColliderComponent" parent="." instance=ExtResource("3_e7qp2")]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="ColliderComponent" index="0"]
+position = Vector2(0, 2.38419e-07)
+
+[node name="BasicMovementComponent" type="Node" parent="."]
+script = ExtResource("4_oumxs")
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_3757q")]
+
+[editable path="ColliderComponent"]

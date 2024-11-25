@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bcwfkcblpiowg"]
+
+[ext_resource type="PackedScene" uid="uid://dr12dvdfe3bvy" path="res://entities/weapon/weapon.tscn" id="1_nrqg0"]
+[ext_resource type="Texture2D" uid="uid://cjocn3hlx12r" path="res://assets/weapon/gun.png" id="2_qd6po"]
+[ext_resource type="PackedScene" uid="uid://rxxgn5tswtyo" path="res://entities/bullet/bullet_normal.tscn" id="2_rxt24"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ye5qc"]
+atlas = ExtResource("2_qd6po")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4f486"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ye5qc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="weapon" instance=ExtResource("1_nrqg0")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_4f486")
+
+[node name="Bullet" parent="." index="1" instance=ExtResource("2_rxt24")]
+visible = false
+
+[node name="Bullet2" parent="." index="2" instance=ExtResource("2_rxt24")]
+visible = false
+
+[node name="Bullet3" parent="." index="3" instance=ExtResource("2_rxt24")]
+visible = false
+
+[node name="Bullet4" parent="." index="4" instance=ExtResource("2_rxt24")]
+visible = false

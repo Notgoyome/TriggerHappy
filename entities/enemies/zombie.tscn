@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://t6dxfsu6i8mu"]
+
+[ext_resource type="PackedScene" uid="uid://bl8g46gak2s64" path="res://entities/enemies/enemy.tscn" id="1_gckkg"]
+
+[node name="Enemy" instance=ExtResource("1_gckkg")]
+collision_layer = 2
+collision_mask = 4
+
+[node name="ColliderComponent" parent="." index="2"]
+collision_layer = 1
+collision_mask = 1
+
+[editable path="ColliderComponent"]

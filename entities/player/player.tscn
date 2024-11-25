@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0ml6e7xdapst"]
+
+[ext_resource type="Script" path="res://entities/player/player.gd" id="1_h48oh"]
+[ext_resource type="Texture2D" uid="uid://bpl7dkapypm1k" path="res://assets/fromage.png" id="2_i0y4u"]
+[ext_resource type="PackedScene" uid="uid://bcwfkcblpiowg" path="res://entities/weapon/gun.tscn" id="3_bbgn8"]
+[ext_resource type="PackedScene" uid="uid://bi1ci5plc0mmh" path="res://entities/components/collider_component.tscn" id="4_ofcnw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xe2d"]
+atlas = ExtResource("2_i0y4u")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kl4ej"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xe2d")
+}],
+"loop": true,
+"name": &"player",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8lcab"]
+size = Vector2(16, 6)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 4
+script = ExtResource("1_h48oh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kl4ej")
+animation = &"player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_8lcab")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="weapon" parent="." instance=ExtResource("3_bbgn8")]
+
+[node name="ColliderComponent" parent="." instance=ExtResource("4_ofcnw")]

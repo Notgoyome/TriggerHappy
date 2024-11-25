@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi1ci5plc0mmh"]
+
+[ext_resource type="Script" path="res://entities/components/collider_component.gd" id="1_kf7vr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3cf3"]
+size = Vector2(16, 16)
+
+[node name="ColliderComponent" type="Area2D"]
+script = ExtResource("1_kf7vr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_t3cf3")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
