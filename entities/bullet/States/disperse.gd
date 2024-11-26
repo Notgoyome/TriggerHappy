@@ -59,7 +59,8 @@ func exit() -> void:
     pass
 
 func add_perspective() -> void:
-    entity.shadow.scale = Vector2((1 - sin(percentage_done * PI) * 0.3), (1 - sin(percentage_done * PI)* 0.3))
+    var factor = 0.6
+    entity.shadow.scale = Vector2((1 - sin(percentage_done * PI) * factor), (1 - sin(percentage_done * PI)* factor))
     entity.animation.position.y = -10 * sin(percentage_done * PI)
     pass
 

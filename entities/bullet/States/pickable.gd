@@ -16,8 +16,8 @@ func enter() -> void:
 
 func process(delta: float) -> void:
 	if pick_request:
-		if player and player.selected_weapon != null:
-			player.selected_weapon.bullets.append(entity)
+		if bullet.player and bullet.player.selected_weapon != null:
+			bullet.player.selected_weapon.bullets.append(entity)
 			emit_signal("state_finished", self, "Reloaded")
 			get_tree().get_root().add_child(entity)
 			entity.disable()
@@ -32,9 +32,9 @@ func exit() -> void:
 
 
 func _on_player_touched(player: Player) -> void:
-	print("Player touched")
-	pick_request = true
-	self.player = player
+	bullet = entity as Bullet
+	if bullet.player == player:
+		pick_request = true
 		
 		#TO DO better implementation
 	pass # Replace with function body.
