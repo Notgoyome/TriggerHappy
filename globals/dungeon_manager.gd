@@ -21,14 +21,16 @@ var size = 5
 
 # Called when the node enters the scene tree for the first time.
 
+func get_current_room_path() -> PackedScene:
+	return array_rooms[current_room.x][current_room.y]
+
 func instantiate_room(room: PackedScene) -> void:
-	if current_room_instance != null:
-		current_room_instance.queue_free()
 	get_tree().change_scene_to_packed(room)
 	#add player to the room
+	await get_tree().process_frame
+	current_room_instance = get_tree().get_root().get_child(0)
 	get_tree().get_root().add_child(player)
 	player.global_position = Vector2(160,168)
-	print("Player added to the room")
 
 func _ready() -> void:
 	player = player_scene.instantiate()
@@ -47,6 +49,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	print(room_finished)
 	pass
 
 func decrease_enemy(nb: int) -> void:
@@ -61,7 +64,6 @@ func change_room(direction: int) -> void:
 	if !room_finished:
 		print("Room not finished")
 		return
-	room_finished = false
 
 	if direction == state.LEFT:
 		current_room.x -= 1
@@ -88,8 +90,10 @@ func change_room(direction: int) -> void:
 
 	var enemies = current_room_instance.get_tree().get_nodes_in_group("enemy")
 	number_enemy = enemies.size()
-	print("Number of enemies: ", number_enemy)
-
+	if number_enemy <= 0:
+		room_finished = true
+	else:
+		room_finished = false
 func reset_array_rooms() -> void:
 	for i in range(0, size):
 

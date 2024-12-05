@@ -9,5 +9,5 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("retry"):
-		get_tree().reload_current_scene()
+		DungeonManager.instantiate_room(DungeonManager.get_current_room_path())
 	pass

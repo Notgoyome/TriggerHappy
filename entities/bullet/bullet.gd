@@ -17,6 +17,7 @@ var player: Player = null
 enum State { IDLE, MOVING, HIT }
 
 func _ready() -> void:
+	top_level = true
 	if animation == null:
 		print("No animation found")
 	disable()

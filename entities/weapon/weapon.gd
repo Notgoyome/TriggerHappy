@@ -66,8 +66,8 @@ func consumme_bullet():
 		return
 	emit_signal("on_shoot")
 	var	selected_bullet : Bullet = bullets[0] as Bullet
-	remove_child(selected_bullet)
-	get_tree().current_scene.call_deferred("add_child", selected_bullet)
+	# remove_child(selected_bullet)
+	# get_tree().current_scene.call_deferred("add_child", selected_bullet)
 	selected_bullet.enable()
 	selected_bullet.direction = (target_pos-user.global_position).normalized()
 	selected_bullet.global_position = global_position

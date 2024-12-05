@@ -24,7 +24,7 @@ func process(delta: float) -> void:
 		if bullet.player and bullet.player.selected_weapon != null:
 			bullet.player.selected_weapon.add_bullet(entity)
 			emit_signal("state_finished", self, "Reloaded")
-			get_tree().get_root().add_child(entity)
+			# get_tree().get_root().add_child(entity)
 			entity.disable()
 	pass
 

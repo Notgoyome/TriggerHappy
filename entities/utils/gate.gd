@@ -12,6 +12,6 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body:Node2D) -> void:
-	if body is Player and DungeonManager.room_finished:
+	if body is Player and is_instance_valid(DungeonManager) and DungeonManager.room_finished:
 		DungeonManager.change_room(door_direction)
 	pass # Replace with function body.
