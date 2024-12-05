@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0ml6e7xdapst"]
+[gd_scene load_steps=9 format=3 uid="uid://b0ml6e7xdapst"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_h48oh"]
 [ext_resource type="Texture2D" uid="uid://bpl7dkapypm1k" path="res://assets/fromage.png" id="2_i0y4u"]
+[ext_resource type="Script" path="res://entities/player/camera_2d.gd" id="3_7lsqw"]
 [ext_resource type="PackedScene" uid="uid://bcwfkcblpiowg" path="res://entities/weapon/gun.tscn" id="3_bbgn8"]
 [ext_resource type="PackedScene" uid="uid://bi1ci5plc0mmh" path="res://entities/components/collider_component.tscn" id="4_ofcnw"]
 
@@ -42,6 +43,7 @@ shape = SubResource("RectangleShape2D_8lcab")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
+script = ExtResource("3_7lsqw")
 
 [node name="weapon" parent="." instance=ExtResource("3_bbgn8")]
 

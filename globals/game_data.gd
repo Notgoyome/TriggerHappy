@@ -1,8 +1,6 @@
-extends StaticBody2D
+extends Node
 
-class_name Enemy
 
-var velocity: Vector2 = Vector2(0, 0)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -10,11 +8,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	move_and_collide(velocity)
+	if Input.is_action_just_pressed("retry"):
+		get_tree().reload_current_scene()
 	pass
-
-
-func _on_death() -> void:
-	DungeonManager.decrease_enemy(1)
-	queue_free()
-	pass # Replace with function body.

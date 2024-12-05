@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://rxxgn5tswtyo"]
+[gd_scene load_steps=11 format=3 uid="uid://rxxgn5tswtyo"]
 
 [ext_resource type="PackedScene" uid="uid://ijlq3nnvkmma" path="res://entities/bullet/bullet.tscn" id="1_bq82r"]
 [ext_resource type="Script" path="res://entities/bullet/States/shoot.gd" id="2_4qxw0"]
@@ -34,7 +34,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_c5gs3"]
+radius = 32.0
+
 [node name="Bullet" instance=ExtResource("1_bq82r")]
+speed = 500.0
 
 [node name="StateMachine" parent="." index="0" node_paths=PackedStringArray("initial_state", "entity")]
 initial_state = NodePath("Reloaded")
@@ -61,11 +65,20 @@ animation = &"idle"
 [node name="ColliderComponent" parent="." index="2"]
 scale = Vector2(1, 0.994416)
 
+[node name="Area2D" type="Area2D" parent="." index="4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_c5gs3")
+debug_color = Color(1, 1, 1, 0.101961)
+
 [connection signal="on_enemy_touched" from="ColliderComponent" to="StateMachine/Shoot" method="_on_enemy_touched"]
 [connection signal="on_player_exited" from="ColliderComponent" to="StateMachine/Pickable" method="_on_collider_component_on_player_exited"]
 [connection signal="on_player_touched" from="ColliderComponent" to="StateMachine/Pickable" method="_on_player_touched"]
+[connection signal="on_wall_exited" from="ColliderComponent" to="StateMachine/Disperse" method="_on_wall_exited"]
 [connection signal="on_wall_touched" from="ColliderComponent" to="." method="_on_wall_touched"]
 [connection signal="on_wall_touched" from="ColliderComponent" to="StateMachine/Shoot" method="_on_wall_touched"]
 [connection signal="on_wall_touched" from="ColliderComponent" to="StateMachine/Disperse" method="_on_wall_touched"]
+[connection signal="body_entered" from="Area2D" to="StateMachine/Pickable" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="StateMachine/Pickable" method="_on_area_2d_body_exited"]
 
 [editable path="ColliderComponent"]

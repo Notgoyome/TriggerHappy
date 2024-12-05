@@ -29,7 +29,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bcgi0"]
 size = Vector2(16, 6)
 
-[node name="Enemy" type="StaticBody2D"]
+[node name="Enemy" type="StaticBody2D" groups=["enemy"]]
 script = ExtResource("1_muj5w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -50,5 +50,7 @@ position = Vector2(0, 2.38419e-07)
 script = ExtResource("4_oumxs")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_3757q")]
+
+[connection signal="on_death" from="HealthComponent" to="." method="_on_death"]
 
 [editable path="ColliderComponent"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dr12dvdfe3bvy"]
+[gd_scene load_steps=7 format=3 uid="uid://dr12dvdfe3bvy"]
 
 [ext_resource type="Script" path="res://entities/weapon/weapon.gd" id="1_dkv4h"]
 [ext_resource type="Texture2D" uid="uid://bfhuemk1dw112" path="res://assets/Potion 2.png" id="2_xdseu"]
+[ext_resource type="AudioStream" uid="uid://d2luy4e2kfy4x" path="res://assets/weapon/sounds/shoot.wav" id="3_eow30"]
+[ext_resource type="AudioStream" uid="uid://bvat1n1ug2lob" path="res://assets/weapon/sounds/reload.mp3" id="4_0enp7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7gcrw"]
 atlas = ExtResource("2_xdseu")
@@ -23,3 +25,20 @@ script = ExtResource("1_dkv4h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_yckax")
+
+[node name="FireRate" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="ClickBuffering" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_eow30")
+volume_db = -5.03
+pitch_scale = 2.44
+
+[node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_0enp7")
+
+[connection signal="on_add_bullet" from="." to="." method="_on_on_add_bullet"]
+[connection signal="on_shoot" from="." to="." method="_on_on_shoot"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://h2jx4862a221"]
+
+[ext_resource type="PackedScene" uid="uid://bl1vset81oxff" path="res://scenes/room/room.tscn" id="1_au0cu"]
+[ext_resource type="PackedScene" uid="uid://t6dxfsu6i8mu" path="res://entities/enemies/zombie.tscn" id="2_ihn0i"]
+
+[node name="Room1" instance=ExtResource("1_au0cu")]
+
+[node name="Enemy" parent="." index="5" instance=ExtResource("2_ihn0i")]
+position = Vector2(248, 40)
+
+[node name="Enemy2" parent="." index="6" instance=ExtResource("2_ihn0i")]
+position = Vector2(248, 152)
+
+[node name="Enemy3" parent="." index="7" instance=ExtResource("2_ihn0i")]
+position = Vector2(160, 96)
+
+[node name="Enemy4" parent="." index="8" instance=ExtResource("2_ihn0i")]
+position = Vector2(78, 152)
+
+[node name="Enemy5" parent="." index="9" instance=ExtResource("2_ihn0i")]
+position = Vector2(78, 35)

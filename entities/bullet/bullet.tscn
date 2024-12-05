@@ -43,9 +43,6 @@ animations = [{
 
 [node name="Bullet" type="Node2D"]
 script = ExtResource("1_0qhm3")
-speed = null
-damage = null
-dispersion_speed = null
 
 [node name="StateMachine" parent="." instance=ExtResource("2_3hifv")]
 
